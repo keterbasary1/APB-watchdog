@@ -7,7 +7,9 @@ GUI	  		?= 0
 TESTNAME 	?= rkv_apb_watchdog_default_test
 CTEST 		?= 0
 DFILES  	= ../../verilog/{cmsdk_apb_watchdog_frc.v,cmsdk_apb_watchdog.v}
-VFILES  	+= ../tb/rkv_watchdog_tb.sv 
+VFILES  	+= ../tb/rkv_watchdog_tb.sv \
+				../vip_lib/apb_pkg/apb_pkg.sv \
+				../vip_lib/apb_if/apb_if.sv \
 
 
 #############################
