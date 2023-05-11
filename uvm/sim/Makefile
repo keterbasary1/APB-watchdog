@@ -14,7 +14,7 @@ VFILES  	+= ../tb/rkv_watchdog_tb.sv
 # Environment variables
 #############################
 VCOMP                = vlogan -full64 -ntb_opts uvm-1.2 -sverilog -timescale=1ps/1ps -nc -l comp.log +incdir+../../verilog
-ELAB                 = vcs -full64 -ntb_opts uvm-1.2 -debug_acc+all -l elab.log -sim_res=1ps -cm line+tgl+branch -cm_hier cm.cfg
+ELAB                 = vcs -full64 -ntb_opts uvm-1.2 -debug_acc+all -debug_region+cell+encrypt -l elab.log -sim_res=1ps -cm line+tgl+branch -cm_hier cm.cfg
 RUN                  = $(TB).simv -l run.log -sml -cm line+tgl+branch -cm_name $(TB)_$(SEED) +ntb_random_seed=$(SEED) +UVM_TESTNAME=$(TESTNAME)
 ifeq ($(GUI),1)
 RUN += -gui
