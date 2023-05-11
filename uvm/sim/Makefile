@@ -7,15 +7,21 @@ GUI	  		?= 0
 TESTNAME 	?= rkv_apb_watchdog_default_test
 CTEST 		?= 0
 DFILES  	= ../../verilog/{cmsdk_apb_watchdog_frc.v,cmsdk_apb_watchdog.v}
-VFILES  	+= ../tb/rkv_watchdog_tb.sv \
-				../vip_lib/apb_pkg/apb_pkg.sv \
-				../vip_lib/apb_if/apb_if.sv \
+VFILES  	+=	../vip_lib/apb_pkg/apb_pkg.sv \
+				../vip_lib/apb_pkg/apb_if.sv \
+				../env/rkv_watchdog_pkg.sv \
+				../tb/rkv_watchdog_if.sv \
+				../tb/rkv_watchdog_tb.sv
+
 
 
 #############################
 # Environment variables
 #############################
-VCOMP                = vlogan -full64 -ntb_opts uvm-1.2 -sverilog -timescale=1ps/1ps -nc -l comp.log +incdir+../../verilog
+VCOMP_INC = +incdir+../../verilog \
+			+incdir+../vip_lib/apb_pkg \
+			+incdir+../{cfg,cov,reg,env,seq_lib,test}
+VCOMP                = vlogan -full64 -ntb_opts uvm-1.2 -sverilog -timescale=1ps/1ps -nc -l comp.log +incdir+../../verilog $(VCOMP_INC)
 ELAB                 = vcs -full64 -ntb_opts uvm-1.2 -debug_acc+all -debug_region+cell+encrypt -l elab.log -sim_res=1ps -cm line+tgl+branch -cm_hier cm.cfg
 RUN                  = $(TB).simv -l run.log -sml -cm line+tgl+branch -cm_name $(TB)_$(SEED) +ntb_random_seed=$(SEED) +UVM_TESTNAME=$(TESTNAME)
 ifeq ($(GUI),1)
